@@ -19,6 +19,8 @@ This file must be updated whenever a change is planned or completed.
 | 2026-02-19 | Planned | Versioning | Define a single project version in CMake and propagate it to CI and documentation. |
 | 2026-02-19 | Planned | Docs | Update `README.md` to cover all supported formats and all built executables. |
 | 2026-02-19 | Planned | Docs | Refresh `Doxyfile` (`doxygen -u`) and remove deprecated tags. |
+| 2026-02-19 | Done | Build | Fixed MSVC build error in `src/datagrams/kmall/KmallParser.cpp` by replacing variable-length array usage with `std::vector<float>`. |
+| 2026-02-19 | Done | Build | Replaced non-portable `strcasecmp` usage with a cross-platform case-insensitive comparison helper in `src/examples/wgs2lgf.cpp`, `src/examples/lgf2wgs.cpp`, and `src/examples/wgs2lgf_from_lat_lon_eh.cpp`. |
 
 ## Update Rule
 When a change starts, add a `Planned` entry.
