@@ -1,26 +1,26 @@
 # versions.md
 
-## Contexte de capture
-- Dépôt: `MBES-lib`
-- Branche: `master`
+## Capture Context
+- Repository: `MBES-lib`
+- Branch: `master`
 - Commit: `b44f136`
-- Date de capture: `2026-02-19 17:08:43 UTC`
+- Capture timestamp: `2026-02-19 17:27:08 UTC`
 
-## Versions déclarées dans le dépôt
-| Élément | Version / Valeur | Source |
+## Versions Declared in Repository Files
+| Item | Version / Value | Source |
 |---|---|---|
-| CMake minimum | `3.7.1` | `CMakeLists.txt:1` |
-| Standard C++ (racine) | `C++17` | `CMakeLists.txt:8` |
-| Eigen requis | `>= 3.3` | `CMakeLists.txt:5` |
-| Version Makefile Linux | `0.1.0` | `Makefile:4` |
-| Version Makefile Windows | `0.1.0` | `MakefileWindows:4` |
-| Version Jenkins | `0.1.$BUILD_ID` | `Jenkinsfile:4`, `Jenkinsfile:6`, `Jenkinsfile:8` |
-| Version Doxygen projet | `CURRENT_VERSION_OF_MBES_LIB` (placeholder) | `Doxyfile:41` |
-| Framework de test embarqué | Catch2 `2.13.10` | `test/catch.hpp:2`, `test/catch.hpp:16` |
-| Standard C++ sous-projet overlap | `C++11` | `src/examples/overlap/CMakeLists.txt:2` |
+| Minimum CMake | `3.10` | `CMakeLists.txt:1` |
+| Root C++ standard | `C++17` | `CMakeLists.txt:8` |
+| Eigen requirement | `required` (no pinned version) | `CMakeLists.txt:5` |
+| Linux Makefile version | `0.1.0` | `Makefile:4` |
+| Windows Makefile version | `0.1.0` | `MakefileWindows:4` |
+| Jenkins version scheme | `0.1.$BUILD_ID` | `Jenkinsfile:4`, `Jenkinsfile:6`, `Jenkinsfile:8` |
+| Doxygen project version | `CURRENT_VERSION_OF_MBES_LIB` (placeholder) | `Doxyfile:41` |
+| Embedded test framework | Catch2 `2.13.10` | `test/catch.hpp:2`, `test/catch.hpp:16` |
+| Overlap subproject C++ standard | `C++11` | `src/examples/overlap/CMakeLists.txt:2` |
 
-## Versions réellement détectées dans l’environnement
-| Outil | Version détectée |
+## Versions Detected in the Environment
+| Tool | Detected Version |
 |---|---|
 | `cmake` | `3.28.3` |
 | `ctest` | `3.28.3` |
@@ -32,24 +32,24 @@
 | `python3` | `3.12.3` |
 | `pkg-config` | `1.8.1` |
 
-## Validation build/tests/doc
-- Build CMake: OK (`cmake -S . -B build && cmake --build build`)
-- Exécutable de tests: OK (`./build/test/tests -r compact`)  
-  Résultat: 120 test cases, 687 assertions, tout passe.
-- CTest: KO pour la découverte (`No tests were found!!!`)  
-  Référence structurelle: binaire de test créé (`CMakeLists.txt:70`) mais pas d’enregistrement `add_test`.
-- Documentation (`make doc`): OK, avec warnings Doxygen (tags obsolètes).
-- Coverage (`make coverage`): OK, avec warning de dépréciation `gcovr --branches`.
+## Build/Test/Doc Validation
+- CMake build: OK (`cmake -S . -B build && cmake --build build`)
+- Test executable: OK (`./build/test/tests -r compact`)  
+  Result: 120 test cases, 687 assertions, all passed.
+- CTest discovery: not configured (`No tests were found!!!`)  
+  Structural reference: test binary exists (`CMakeLists.txt:70`) but no registered `add_test`.
+- Documentation (`make doc`): OK, with Doxygen warnings (obsolete tags).
+- Coverage (`make coverage`): OK, with deprecation warning for `gcovr --branches`.
 
-## Incohérences de versioning
-1. Pas de version unique du projet.
-2. CMake ne porte pas de version formelle (`project(... VERSION ...)` absent).
-3. Jenkins fabrique une version dynamique (`0.1.$BUILD_ID`) différente de `0.1.0` dans les Makefiles.
-4. Doxygen utilise un placeholder non résolu (`CURRENT_VERSION_OF_MBES_LIB`).
-5. Standard C++ incohérent entre racine (`C++17`) et `overlap` (`C++11`).
+## Versioning Inconsistencies
+1. No single canonical project version source.
+2. CMake does not define a formal project version (`project(... VERSION ...)` is missing).
+3. Jenkins uses dynamic versioning (`0.1.$BUILD_ID`) while Makefiles use static `0.1.0`.
+4. Doxygen still uses an unresolved placeholder (`CURRENT_VERSION_OF_MBES_LIB`).
+5. C++ standard is inconsistent between root (`C++17`) and `overlap` (`C++11`).
 
-## Recommandation de normalisation
-1. Déclarer une version canonique dans CMake: `project(MBES-lib VERSION X.Y.Z)`.
-2. Réutiliser cette version dans Jenkins (pipeline), Doxygen et packaging.
-3. Éviter les versions codées en dur dans plusieurs fichiers (`Makefile`, `MakefileWindows`, `Jenkinsfile`, `Doxyfile`).
-4. Uniformiser le standard C++ (idéalement `C++17`) sur tous les sous-projets actifs.
+## Normalization Recommendations
+1. Define canonical version in CMake: `project(MBES-lib VERSION X.Y.Z)`.
+2. Reuse that version in CI, documentation, and packaging.
+3. Avoid hardcoded versions spread across multiple files (`Makefile`, `MakefileWindows`, `Jenkinsfile`, `Doxyfile`).
+4. Align C++ standard across active subprojects (prefer `C++17`).
